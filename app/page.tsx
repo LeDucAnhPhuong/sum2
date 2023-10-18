@@ -198,6 +198,7 @@ export default function Home() {
         <div className="mt-[20px] mx-[auto]">Điểm trên lớp: {result.toFixed(2)}</div>
         <div className="mt-[20px] mx-[auto]">Điểm tổng: {(result / 2).toFixed(2)}</div>
       </Box>
+      <div className="absolute right-0 bottom-0 text-[#0098FF]">@byAnhphuong</div>
     </main>
   );
 }
