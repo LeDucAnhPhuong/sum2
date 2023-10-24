@@ -17,9 +17,10 @@ type Props = {
   speaking1: Number;
   speaking2: Number;
   speaking3: Number;
+  result : () => Number
 };
 export default function Home() {
-  const [mark, setMark] = useState<Props>({
+  const [mark, setMark] = useState<any>({
     attendance: 0,
     participation: 0,
     progress1: 0,
@@ -33,27 +34,24 @@ export default function Home() {
     speaking1: 0,
     speaking2: 0,
     speaking3: 0,
+    result: function() : Number {
+      const result =
+        Number(this?.attendance) * 0.2 +
+        Number(this?.participation) * 0.2 +
+        Number(this?.progress1) * 0.04 +
+        Number(this?.progress2) * 0.04 +
+        Number(this?.progress3) * 0.04 +
+        Number(this?.progress4) * 0.04 +
+        Number(this?.progress5) * 0.04 +
+        Number(this?.writing1) / 15 +
+        Number(this?.writing2) / 15 +
+        Number(this?.writing3) / 15 +
+        Number(this?.speaking1) / 15 +
+        Number(this?.speaking2) / 15 +
+        Number(this?.speaking3) / 15;
+      return result;
+    },
   });
-  const [result, setResult] = useState<number>(0);
-  useEffect(() => {
-    const result =
-      Number(mark.attendance) * 0.2 +
-      Number(mark.participation) * 0.2 +
-      Number(mark.progress1) * 0.04 +
-      Number(mark.progress2) * 0.04 +
-      Number(mark.progress3) * 0.04 +
-      Number(mark.progress4) * 0.04 +
-      Number(mark.progress5) * 0.04 +
-      Number(mark.writing1) / 15 +
-      Number(mark.writing2) / 15 +
-      Number(mark.writing3) / 15 +
-      Number(mark.speaking1) / 15 +
-      Number(mark.speaking2) / 15 +
-      Number(mark.speaking3) / 15;
-
-    console.log("result", result);
-    setResult(result);
-  }, [mark]);
   return (
     <main className="flex justify-center  h-full w-full items-center p-[10px]">
       <Box className="gap-[10px] flex flex-col">
@@ -61,60 +59,20 @@ export default function Home() {
           onChange={({ target }) => {
             const { name } = target as HTMLInputElement;
             const { value } = target as HTMLInputElement;
-            switch (name) {
-              case "Attendance":
-                setMark({ ...mark, attendance: Number(value) });
-                break;
-              case "Participation":
-                setMark({ ...mark, participation: Number(value) });
-                break;
-              case "progress1":
-                setMark({ ...mark, progress1: Number(value) });
-                break;
-              case "progress2":
-                setMark({ ...mark, progress2: Number(value) });
-                break;
-              case "progress3":
-                setMark({ ...mark, progress3: Number(value) });
-                break;
-              case "progress4":
-                setMark({ ...mark, progress4: Number(value) });
-                break;
-              case "progress5":
-                setMark({ ...mark, progress5: Number(value) });
-                break;
-              case "writing1":
-                setMark({ ...mark, writing1: Number(value) });
-                break;
-              case "writing2":
-                setMark({ ...mark, writing2: Number(value) });
-                break;
-              case "writing3":
-                setMark({ ...mark, writing3: Number(value) });
-                break;
-              case "speaking1":
-                setMark({ ...mark, speaking1: Number(value) });
-                break;
-              case "speaking2":
-                setMark({ ...mark, speaking1: Number(value) });
-                break;
-              case "speaking3":
-                setMark({ ...mark, speaking3: Number(value) });
-                break;
-            }
+            setMark({ ...mark, [name]: Number(value) });
           }}
           className="gap-[10px] flex flex-col"
         >
           <Typography>Attendance</Typography>
           <TextField
-            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
             variant="outlined"
             label="Attendance"
             name="Attendance"
           ></TextField>
           <Typography>Participation</Typography>
           <TextField
-            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
             variant="outlined"
             label="Participation"
             name="Participation"
@@ -122,31 +80,31 @@ export default function Home() {
           <Typography>Progress test</Typography>
           <div className="flex flex-wrap gap-[10px] w-full">
             <TextField
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
               variant="outlined"
               label="progress 1"
               name="progress1"
             ></TextField>
             <TextField
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
               variant="outlined"
               label="progress 2"
               name="progress2"
             ></TextField>
             <TextField
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
               variant="outlined"
               label="progress 3"
               name="progress3"
             ></TextField>
             <TextField
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
               variant="outlined"
               label="progress 4"
               name="progress4"
             ></TextField>
             <TextField
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
               variant="outlined"
               label="progress 5"
               name="progress5"
@@ -155,19 +113,19 @@ export default function Home() {
           <Typography>writing</Typography>
           <div className="flex flex-wrap gap-[10px] w-full">
             <TextField
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
               variant="outlined"
               label="Writing 1"
               name="writing1"
             ></TextField>
             <TextField
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
               variant="outlined"
               label="Writing 2"
               name="writing2"
             ></TextField>
             <TextField
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
               variant="outlined"
               label="Writing 3"
               name="writing3"
@@ -176,29 +134,35 @@ export default function Home() {
           <Typography>Speaking</Typography>
           <div className="flex flex-wrap gap-[10px] w-full">
             <TextField
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
               variant="outlined"
               label="Speaking 1"
               name="speaking1"
             ></TextField>
             <TextField
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
               variant="outlined"
               label="Speaking 2"
               name="speaking2"
             ></TextField>
             <TextField
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
               variant="outlined"
               label="Speaking 3"
               name="speaking3"
             ></TextField>
           </div>
         </FormGroup>
-        <div className="mt-[20px] mx-[auto]">Điểm trên lớp: {result.toFixed(2)}</div>
-        <div className="mt-[20px] mx-[auto]">Điểm tổng: {(result / 2).toFixed(2)}</div>
+        <div className="mt-[20px] mx-[auto]">
+          Điểm trên lớp: {mark.result().toFixed(2)}
+        </div>
+        <div className="mt-[20px] mx-[auto]">
+          Điểm tổng: {(mark.result() / 2).toFixed(2)}
+        </div>
       </Box>
-      <div className="absolute right-0 bottom-0 text-[#0098FF]">@byAnhphuong</div>
+      <div className="absolute right-0 bottom-0 text-[#0098FF]">
+        @byAnhphuong
+      </div>
     </main>
   );
 }
